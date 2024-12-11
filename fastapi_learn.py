@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Path
 from typing import Annotated
 
-app = FastAPI()
+app = FastAPI(swagger_ui_parameters=({"TryItOut Enabled":True}))
 
 
 @app.get("/")
