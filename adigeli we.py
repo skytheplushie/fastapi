@@ -35,7 +35,7 @@ async def update_user(user_id: Annotated[int, Path(ge=1, le=100, description='En
                                                     description='Enter username', example='UrbanUser')],
                       age: Annotated[int, Path(ge=18, le=120, description='Enter age', example='24')]) -> User:
     for user in users:
-        if user_id == user_id:
+        if user.id == user_id:
             user.username = username
             user.age = age
             return user
@@ -43,6 +43,8 @@ async def update_user(user_id: Annotated[int, Path(ge=1, le=100, description='En
 
 
 @app.delete('/user/{user_id}')
-async def users_del(user_id: Annotated[int, Path(ge=1, le=100, description='Enter User ID', example='1')]):
-    users.pop(str(user_id))
-    return f'The User {user_id} was deleted'
+async def users_del(user_id: Annotated[int, Path(ge=1, le=100, description='Enter User ID', example='1')]) -> User:
+    for user in users:
+        if user.id == user_id:
+            users.remove(user)
+            return user
